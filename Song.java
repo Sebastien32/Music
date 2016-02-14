@@ -1,21 +1,25 @@
-//TODO: Fix for any number of tags 
+//TODO: Fix for any number of tags
 import java.util.Arrays;
+import java.util.ArrayList;
 public class Song
 {
-    public static final String[]  EXAMPLE = {"Favorites", "Secondary", "Other", "Fast", "Slow", "N/A", "Oldies", "Acapella", "Embarrassed", "Workout", "Classical", "Opera", "Christmas", "Buddy Holly", "Musicals", "XC", "Consideration", "Connor", "Karen", "Talia", "HIMYM", "Disney", "The Sound of Music", "Les Miserables"};
+    public static final String[]  EXAMPLE = {"Favorites", "Secondary", "Other", "Fast", "Slow", "N/A", "Oldies", "Acapella",
+        "Embarrassed", "Workout", "Classical", "Opera", "Christmas", "Buddy Holly", "Musicals", "XC", "Consideration",
+        "Connor", "Karen", "Talia", "HIMYM", "Disney", "The Sound of Music", "Les Miserables", "Seussical", "Spanish", "Hamilton"};
+    public static final int NUMBER_OF_TAGS = Song.EXAMPLE.length;
     private String name;
     private String artist;
     private String album;
     private String spotifyID;
     private String inputLength;
     private int songLength;
-    private Boolean[] tags = new Boolean[24];
+    private ArrayList<Boolean> tags = new ArrayList<Boolean>();
     private Boolean favorites;
     private Boolean secondary;
     private Boolean other;
     private Boolean fast;
     private Boolean slow;
-    private Boolean notapplicable;
+    private Boolean notApplicable;
     private Boolean oldies;
     private Boolean acapella;
     private Boolean embarrassed;
@@ -34,9 +38,19 @@ public class Song
     private Boolean disney;
     private Boolean theSoundOfMusic;
     private Boolean lesMiserables;
+    private Boolean seussical;
+    private Boolean spanish;
+    private Boolean hamilton;
 
-    public Song(String name, Boolean nameError, String artist, String album, String inputLength, String spotifyID, Boolean favorites, Boolean secondary, Boolean other, Boolean fast, Boolean slow, Boolean notapplicable, Boolean oldies, Boolean acapella, Boolean embarrassed, Boolean workout, Boolean classical, Boolean opera, Boolean christmas, Boolean buddyHolly, Boolean musicals, Boolean xc, Boolean consideration, Boolean connor, Boolean karen, Boolean talia, Boolean himym, Boolean disney, Boolean theSoundOfMusic, Boolean lesMiserables)
+    public Song(String name, Boolean nameError, String artist, String album, String inputLength, String spotifyID, ArrayList<Boolean> tagData)
     {
+        if(!(tagData.size() == NUMBER_OF_TAGS))
+        {
+            this.name = "Error";
+            this.artist = "Error";
+            this.album = "Error";
+            this.spotifyID = "Error";
+        }
         if(nameError)
         {
             int first = name.indexOf("~~");
@@ -50,56 +64,36 @@ public class Song
         this.artist = artist;
         this.album = album;
         this.inputLength = inputLength;
-        this.songLength = 60 * Integer.parseInt(inputLength.substring(2, 4)) + Integer.parseInt(inputLength.substring(5, 7));
         this.spotifyID = spotifyID;
-        this.favorites = favorites;
-        this.secondary = secondary;
-        this.other = other;
-        this.fast = fast;
-        this.slow = slow;
-        this.notapplicable = notapplicable;
-        this.oldies = oldies;
-        this.acapella = acapella;
-        this.embarrassed = embarrassed;
-        this.workout = workout;
-        this.classical = classical;
-        this.opera = opera;
-        this.christmas = christmas;
-        this.buddyHolly = buddyHolly;
-        this.musicals = musicals;
-        this.xc = xc;
-        this.consideration = consideration;
-        this.connor = connor;
-        this.karen = karen;
-        this.talia = talia;
-        this.himym = himym;
-        this.disney = disney;
-        this.theSoundOfMusic = theSoundOfMusic;
-        this.lesMiserables = lesMiserables;
-        tags[0] = favorites;
-        tags[1] = secondary;
-        tags[2] = other;
-        tags[3] = fast;
-        tags[4] = slow;
-        tags[5] = notapplicable;
-        tags[6] = oldies;
-        tags[7] = acapella;
-        tags[8] = embarrassed;
-        tags[9] = workout;
-        tags[10] = classical;
-        tags[11] = opera;
-        tags[12] = christmas;
-        tags[13] = buddyHolly;
-        tags[14] = musicals;
-        tags[15] = xc;
-        tags[16] = consideration;
-        tags[17] = connor;
-        tags[18] = karen;
-        tags[19] = talia;
-        tags[20] = himym;
-        tags[21] = disney;
-        tags[22] = theSoundOfMusic;
-        tags[23] = lesMiserables;
+        this.songLength = 60 * Integer.parseInt(inputLength.substring(2, 4)) + Integer.parseInt(inputLength.substring(5, 7));
+        this.tags = tagData;
+        this.favorites = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Favorites"));
+        this.secondary = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Secondary"));
+        this.other = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Other"));
+        this.fast = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Fast"));
+        this.slow = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Slow"));
+        this.notApplicable = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("N/A"));
+        this.oldies = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Oldies"));
+        this.acapella = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Acapella"));
+        this.embarrassed = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Embarrassed"));
+        this.workout = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Workout"));
+        this.classical = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Classical"));
+        this.opera = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Opera"));
+        this.christmas = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Christmas"));
+        this.buddyHolly = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Buddy Holly"));
+        this.musicals = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Musicals"));
+        this.xc = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("XC"));
+        this.consideration = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Consideration"));
+        this.connor = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Connor"));
+        this.karen = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Karen"));
+        this.talia = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Talia"));
+        this.himym = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("HIMYM"));
+        this.disney = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Disney"));
+        this.theSoundOfMusic = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("The Sound of Music"));
+        this.lesMiserables = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Les Miserables"));
+        this.seussical = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Seussical"));
+        this.spanish = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Spanish"));
+        this.hamilton = tagData.get(java.util.Arrays.asList(EXAMPLE).indexOf("Hamilton"));
     }
 
     public String getName()
@@ -132,7 +126,7 @@ public class Song
         return spotifyID;
     }
 
-    public Boolean[] getTags()
+    public ArrayList<Boolean> getTags()
     {
         return tags;
     }
@@ -162,9 +156,9 @@ public class Song
         return slow;
     }
 
-    public Boolean getnotapplicable()
+    public Boolean getnotApplicable()
     {
-        return notapplicable;
+        return notApplicable;
     }
 
     public Boolean getOldies()
@@ -257,6 +251,21 @@ public class Song
         return lesMiserables;
     }
 
+    public Boolean getSeussical()
+    {
+        return seussical;
+    }
+
+    public Boolean getSpanish()
+    {
+        return spanish;
+    }
+
+    public Boolean getHamilton()
+    {
+        return hamilton;
+    }
+
     public String getPlaylistName()
     {
         String fullName = getName() + " - " + getArtist() + " - " + getAlbum();
@@ -266,11 +275,11 @@ public class Song
     public String getFullName()
     {
         String fullName = getName() + " - " + getArtist() + " (" + getAlbum() + " - " + getLengthString() + ")";
-        for(int i = 0; i < 24; i++)
+        for(int i = 0; i < NUMBER_OF_TAGS; i++)
         {
-            if(tags[i] == true)
+            if(tags.get(i) == true)
             {
-                fullName += " " + EXAMPLE[i];
+                fullName += " " + Song.EXAMPLE[i];
             }
         }
         return fullName;
